@@ -1,39 +1,28 @@
-INSERT INTO employee
-  (first_name, last_name, role_id, manager_id)
-VALUES
-  ('Denise', 'Tuominen'),
-  ('Gunnar', 'Tuominen'),
-  ('Megan', 'Londo'),
-  ('Jordan', 'Tollefson'),
-  ('Scott', 'Tollefson'),
-  ('Ryan', 'Londo'),
-  ('Matti', 'Londo'),
-  ('Mike', 'Tuominen'),
-  ('Gus', 'Tollefson');
+INSERT into department (name) VALUES ('Accounting');
+INSERT into department (name) VALUES ('Operattion');
+INSERT into department (name) VALUES ('Teaching Staff');
+INSERT into department (name) VALUES ('Sales');
+INSERT into department (name) VALUES ('Human Resources');
+INSERT into department (name) VALUES ('Back Office');
+INSERT into department (name) VALUES ('Front Office');
+INSERT into department (name) VALUES ('Back Office');
 
-INSERT INTO role
-  (id, title, salary, department_id)
-VALUES
-  ('1','Manager', 165000),
-  ('2','Intern', 55000),
-  ('3','Sales', 155000),
-  ('4','Software Engineer', 85000),
-  ('5','Lawyer', 125000)
-  ('6','Teacher', 100000)
-  ('7','Fire Fighter', 85000)
-  ('8','Police Officer', 105000)
-  
 
-INSERT INTO department
-  (id, name)
-VALUES
-  ('5', 'Information Tech'),
-  ('3', 'Accounting'),
-  ('2', 'Operations'),
-  ('1', 'Sales'),
-  ('4', 'Human Resources'),
-  ('6', 'Sheriff Office'),
-  ('7', 'Teaching Staff'),
-  ('8', 'Fire Staff'),
-
-  
+INSERT into role (title, salary, department_id) VALUES ('Manager', 165000, 5);
+INSERT into role (title, salary, department_id) VALUES ('Intern', 55000, 3);
+INSERT into role (title, salary, department_id) VALUES ('Sales', 155000, 2);
+INSERT into role (title, salary, department_id) VALUES ('Software Engineer', 85000, 1);
+INSERT into role (title, salary, department_id) VALUES ('Lawyer', 125000, 4);
+INSERT into role (title, salary, department_id) VALUES ('Teacher', 100000, 6);
+INSERT into role (title, salary, department_id) VALUES ('Dog Walker',185000, 7);
+INSERT into role (title, salary, department_id) VALUES ('Secertary', 105000, 8);
+ 
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES('Denise', 'Tuominen', 1, null);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES('Gunnar', 'Tuominen', 2, 1);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES('Megan', 'Londo', 2, 1);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Jordan', 'Tollefson', 4, 3);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Scott', 'Tollefson', 6, 2);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES  ('Ryan', 'Londo', 4, 3);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Matti', 'Londo', 2, null);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES  ('Mike', 'Tuominen', 6, 5);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Gus', 'Tollefson', 2, null);
