@@ -5,7 +5,7 @@ const db = require('../../db/connection');
 require("console.table");
 const inputCheck = require('../../utils/inputCheck');
 
-
+//view employee by department
 
 
 module.exports = router;

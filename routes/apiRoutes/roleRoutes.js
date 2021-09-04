@@ -6,6 +6,14 @@ require("console.table");
 const inputCheck = require('../../utils/inputCheck');
 
 
+//view all employee by role
+
+
+
+
+//update role
+
+
 
 
 module.exports = router;
