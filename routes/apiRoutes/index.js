@@ -1,7 +1,6 @@
-//apiRoutes index 12.5
-
 const express = require('express');
 const router = express.Router();
+require("console.table");
 
 router.use(require('./employeeRoutes'));
 router.use(require('./roleRoutes'));
