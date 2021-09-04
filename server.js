@@ -1,4 +1,6 @@
+ 
 const express = require('express');
+const inquirer = require('inquirer');
 const db = require('./db/connection');
 const inputCheck = require('./utils/inputCheck');
 require("console.table");
@@ -27,3 +29,4 @@ db.connect(err => {
     console.log(`Server running on port ${PORT}`);
   });
 });
+

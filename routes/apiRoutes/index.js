@@ -1,4 +1,5 @@
 const express = require('express');
+const inquirer = require('inquirer');
 const router = express.Router();
 require("console.table");
 
