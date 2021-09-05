@@ -9,10 +9,10 @@ const promptMessages = {
     viewByDepartment: "View All Department",
     viewAllRoles: "View All Roles",
     viewAllEmployees: "View All Employees",
-    addDepartment: "Add A Department",
-    addRole: "Add A Role",
-    addEmployee: "Add A Employee",
-    updateEmployeeRole: "Update Employee Role",
+    // addDepartment: "Add A Department",
+    // addRole: "Add A Role",
+    // addEmployee: "Add A Employee",
+    // updateEmployeeRole: "Update Employee Role",
     viewByManager: "View All Employees By Manager",
     viewEmployeeByDepartment: "View Employee By Department",
     exit: "Exit"
@@ -27,7 +27,7 @@ const prompt = () => {
             type: 'list',
             message: 'What would you like to do?',
             choices: [
-                promptMessages.viewAllDepartment,
+                promptMessages.viewByDepartment,
                 promptMessages.viewAllRoles,
                 promptMessages.viewAllEmployees,
                 // promptMessages.addDepartment,
@@ -42,8 +42,8 @@ const prompt = () => {
         .then(answer => {
             console.log('answer', answer);
             switch (answer.action) {
-                case promptMessages.viewAllDepartment:
-                    viewAllDepartment();
+                case promptMessages.viewByDepartment:
+                    viewByDepartment();
                     break;
 
                 case promptMessages.viewAllRoles:
@@ -79,20 +79,20 @@ const prompt = () => {
                     break;
 
                 case promptMessages.exit:
-                    db.query().exit();
+                   Connection.end();
                     break;
             }
         });
 }
 
 //view all departments showing department  names and diepartment id
-const viewAllDepartment = () => {
+const viewByDepartment = () => {
     const sql = `SELECT department.name AS department, department.id AS department_ID 
     FROM department;`;
 
     return db.query(sql, (err, res) => {
         if (err) throw err;
-        console.log('View All Departments');
+        console.log('View By Departments');
         console.table(res);
         prompt();
     });
@@ -123,7 +123,7 @@ const viewAllEmployees = () => {
     FROM employee
     LEFT JOIN employee manager on manager.id = employee.manager_id
     INNER JOIN role ON (role.id = employee.role_id)
-    INNER JOIN department ON (department.id = role.department_id)`
+    INNER JOIN department ON (department.id = role.department_id);`;
 
     return db.query(sql, (err, res) => {
         if (err) throw err;
@@ -188,7 +188,7 @@ const viewByManager = () => {
     LEFT JOIN employee manager on manager.id = employee.manager_id
     INNER JOIN role ON (role.id = employee.role_id && employee.manager_id != 'NULL')
     INNER JOIN department ON (department.id = role.department_id)
-    ORDER BY manager;`
+    ORDER BY manager;`;
 
     return db.query(sql, (err, res) => {
         if (err) throw err;
@@ -210,7 +210,7 @@ const viewEmployeeByDepartment = () => {
 
     return db.query(sql, (err, res) => {
         if (err) throw err;
-        console.log('View All Roles');
+        console.log('View Employee By Department');
         console.table(res);
         prompt();
     });
