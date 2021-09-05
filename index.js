@@ -8,10 +8,10 @@ const promptMessages = {
     viewAllEmployees: "View All Employees",
     viewByDepartment: "View All Employees By Department",
     viewByManager: "View All Employees By Manager",
-    addEmployee: "Add An Employee",
-    removeEmployee: "Remove An Employee",
-    updateRole: "Update Employee Role",
-    updateEmployeeManager: "Update Employee Manager",
+    // addEmployee: "Add An Employee",
+    // removeEmployee: "Remove An Employee",
+    // updateRole: "Update Employee Role",
+    // updateEmployeeManager: "Update Employee Manager",
     viewAllRoles: "View All Roles",
     exit: "Exit"
 };
@@ -29,9 +29,9 @@ const prompt = () => {
                 promptMessages.viewByDepartment,
                 promptMessages.viewByManager,
                 promptMessages.viewAllRoles,
-                promptMessages.addEmployee,
-                promptMessages.removeEmployee,
-                promptMessages.updateRole,
+                // promptMessages.addEmployee,
+                // promptMessages.removeEmployee,
+                // promptMessages.updateRole,
                 promptMessages.exit
             ]
         })
@@ -50,24 +50,24 @@ const prompt = () => {
                     console.table(viewByManager());
                     break;
 
-                case promptMessages.addEmployee:
-                    console.table(addEmpoyee());
-                    break;
+                // case promptMessages.addEmployee:
+                //     console.table(addEmpoyee());
+                //     break;
 
-                case promptMessages.removeEmployee:
-                    remove('delete');
-                    break;
+                // case promptMessages.removeEmployee:
+                //     remove('delete');
+                //     break;
 
-                case promptMessages.updateRole:
-                    remove('role');
-                    break;
+                // case promptMessages.updateRole:
+                //     remove('role');
+                //     break;
 
                 case promptMessages.viewAllRoles:
                     console.table(viewAllRoles());
                     break;
 
                 case promptMessages.exit:
-                    connection.end();
+                    connection.exit();
                     break;
             }
         });
@@ -82,9 +82,7 @@ const viewAllEmployees = () => {
 
     return db.query(sql, (err, res) => {
         if (err) throw err;
-        console.log('\n');
         console.log('VIEW ALL EMPLOYEES');
-        console.log('\n');
         console.table(res);
         prompt();
     });
@@ -99,16 +97,14 @@ const viewByDepartment = () => {
 
     return db.query(sql, (err, res) => {
         if (err) throw err;
-        console.log('\n');
         console.log('View By Department');
-        console.log('\n');
         console.table(res);
         prompt();
     });
 }
 
 const viewByManager = () => {
-    const sql =  `SELECT CONCAT(manager.first_name, ' ', manager.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
+    const sql = `SELECT CONCAT(manager.first_name, ' ', manager.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
     FROM employee
     LEFT JOIN employee manager on manager.id = employee.manager_id
     INNER JOIN role ON (role.id = employee.role_id && employee.manager_id != 'NULL')
@@ -117,9 +113,7 @@ const viewByManager = () => {
 
     return db.query(sql, (err, res) => {
         if (err) throw err;
-        console.log('\n');
         console.log('View By Manager');
-        console.log('\n');
         console.table(res);
         prompt();
     });
@@ -131,22 +125,27 @@ const viewAllRoles = () => {
     LEFT JOIN role ON (role.id = employee.role_id)
     LEFT JOIN department ON (department.id = role.department_id)
     ORDER BY role.title;`;
-   
+
     return db.query(sql, (err, res) => {
         if (err) throw err;
-        console.log('\n');
         console.log('View All Roles');
-        console.log('\n');
         console.table(res);
         prompt();
     });
 
- }
+}
 
 //  const addEmployee = () => {
 
 //  }
 
+// removeEmployee: "Remove An Employee",
+
+
+// updateRole: "Update Employee Role",
+
+
+// updateEmployeeManager: "Update Employee Manager",
 
 prompt();
 
