@@ -18,11 +18,11 @@ INSERT into role (title, salary, department_id) VALUES ('Dog Walker',185000, 7);
 INSERT into role (title, salary, department_id) VALUES ('Secertary', 105000, 8);
  
 INSERT into employee (first_name, last_name, role_id, manager_id) VALUES('Denise', 'Tuominen', 3, null);
-INSERT into employee (first_name, last_name, role_id, manager_id) VALUES('Gunnar', 'Tuominen', 2, 1);
-INSERT into employee (first_name, last_name, role_id, manager_id) VALUES('Megan', 'Londo', 2, 1);
-INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Jordan', 'Tollefson', 2, 3);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES('Gunnar', 'Tuominen', 8, 1);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES('Megan', 'Londo', 5, 1);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Jordan', 'Tollefson', 7, 3);
 INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Scott', 'Tollefson', 6, 2);
 INSERT into employee (first_name, last_name, role_id, manager_id) VALUES  ('Ryan', 'Londo', 4, 3);
 INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Matti', 'Londo', 2, null);
 INSERT into employee (first_name, last_name, role_id, manager_id) VALUES  ('Mike', 'Tuominen', 6, 5);
-INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Gus', 'Tollefson', 2, null);
+INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ('Gus', 'Tollefson', 7, null);
