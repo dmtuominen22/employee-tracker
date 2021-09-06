@@ -9,16 +9,14 @@ const promptMessages = {
     viewByDepartment: "View All Department",
     viewAllRoles: "View All Roles",
     viewAllEmployees: "View All Employees",
-    // addDepartment: "Add A Department",
-    // addRole: "Add A Role",
+    addDepartment: "Add A Department",
+    addRole: "Add A Role",
     // addEmployee: "Add A Employee",
     // updateEmployeeRole: "Update Employee Role",
     viewByManager: "View All Employees By Manager",
     viewEmployeeByDepartment: "View Employee By Department",
     exit: "Exit"
 };
-
-
 
 const prompt = () => {
     inquirer
@@ -30,8 +28,8 @@ const prompt = () => {
                 promptMessages.viewByDepartment,
                 promptMessages.viewAllRoles,
                 promptMessages.viewAllEmployees,
-                // promptMessages.addDepartment,
-                // promptMessages.addRole,
+                promptMessages.addDepartment,
+                promptMessages.addRole,
                 // promptMessages.addEmployee,
                 // prommpMessages.updateEmployeeRole,
                 promptMessages.viewByManager,
@@ -54,20 +52,20 @@ const prompt = () => {
                     viewAllEmployees();
                     break;
 
-                // case promptMessages.addDepartment:
-                //     addDepartment();
-                //     break;
+                case promptMessages.addDepartment:
+                    addDepartment();
+                    break;
 
-                // case promptMessages.addRole:
-                //     addRole('add');
-                //     break;
+                case promptMessages.addRole:
+                    addRole();
+                    break;
 
                 // case promptMessages.addEmployee:
-                //     addEmployee('add');
+                //     addEmployee();
                 //     break;
 
                 // case promptMessages.updateEmployeeRole:
-                //     addRole('add');
+                //     updateRole();
                 //     break;
 
                 case promptMessages.viewByManager:
@@ -79,13 +77,13 @@ const prompt = () => {
                     break;
 
                 case promptMessages.exit:
-                   Connection.end();
+                    db.end();
                     break;
             }
         });
 }
 
-//view all departments showing department  names and diepartment id
+//view all departments showing department names and department id
 const viewByDepartment = () => {
     const sql = `SELECT department.name AS department, department.id AS department_ID 
     FROM department;`;
@@ -99,7 +97,7 @@ const viewByDepartment = () => {
 
 }
 
-//view all roles, job title role id department and salary for that role
+//view all roles, job title, role id, department and salary for that role
 const viewAllRoles = () => {
     const sql = `SELECT role.title, role.id, department.name AS department_name, role.salary
     FROM employee
@@ -117,7 +115,7 @@ const viewAllRoles = () => {
 }
 
 
-//view all employee, employee id, first name last name job titles department salaries manager
+//view all employee, employee id, first name, last name, job titles, departmen,t salaries manager
 const viewAllEmployees = () => {
     const sql = `SELECT  employee.id, employee.first_name,employee.last_name, role.title AS title, department.name AS department, role.salary AS salary, (CONCAT(manager.first_name, ' ', manager.last_name)) AS manager
     FROM employee
@@ -133,31 +131,48 @@ const viewAllEmployees = () => {
     });
 }
 
-// //add department to the department table
-// const AddDepartment = () => {
-//     const sql = ``;
+//add department to the department table
+function addDepartment() {
+    inquirer.prompt({
+        name: 'Department',
+        type: 'input',
+        message: 'Please enter the Department Name'
+    })
+        .then(answer => {
+            const sql = `INSERT into department (name) VALUES ('${answer.Department}');`;
+            db.promise().query(sql)
+                .then(([rows, fields]) => {
+                    prompt();
+                });
+        });
+}
 
-//     return db.query(sql, (err, res) => {
-//         if (err) throw err;
-//         console.log('Add A Department');
-//         console.table(res);
-//         prompt();
-//     });
-// }
+// //add role name, salary and department
+function addRole() {
+    inquirer.prompt({
+        name: 'title',
+        type: 'input',
+        message: 'Please enter the title',
+     
+        name: 'salary',
+        type: 'input',
+        message: 'Please enter the salary',
+      
+        name: 'Department',
+        type: 'input',
+        message: 'Please enter the Department'
+    })
 
-// //add role name salary and department
-// const AddRole = () => {
-//     const sql = ``;
+    .then(answer => {
+        const sql = `INSERT into role (title, salary, department_id) VALUES ('${answer.title, answer.salary, answer.department_id});`;
+        db.promise().query(sql)
+            .then(([rows, fields]) => {
+                prompt();
+        });
+    });
+}
 
-//     return db.query(sql, (err, res) => {
-//         if (err) throw err;
-//         console.log('Add A Role');
-//         console.table(res);
-//         prompt();
-//     });
-// }
-
-// //add employee employee fist name, last name role and manager 
+// //add new employee, employee fist name, last name, role and manager 
 // const addEmployee = () => {
 //     const sql = ``;
 
@@ -169,7 +184,7 @@ const viewAllEmployees = () => {
 //     });
 // }
 
-// //update Employee role select employee update to there new role 
+// //update Employee role, select an employee to  update there role 
 // const updateEmployeeRole = () => {
 //     const sql = ``;
 
