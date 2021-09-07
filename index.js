@@ -149,27 +149,39 @@ function addDepartment() {
 
 // //add role name, salary and department
 function addRole() {
-    inquirer.prompt({
-        name: 'title',
+      return db.query(`SELECT department.name AS department, department.id AS department_id
+    FROM department`, (err, res) => {
+        if (err) throw err;
+        console.log('View By Departments');
+        console.log(res [0].department );
+  
+    inquirer.prompt([
+        {
+        name: 'Title',
         type: 'input',
-        message: 'Please enter the title',
+        message: 'Please enter the title'},
      
-        name: 'salary',
+       { name: 'Salary',
         type: 'input',
-        message: 'Please enter the salary',
+        message: 'Please enter the salary'},
       
-        name: 'Department',
-        type: 'input',
-        message: 'Please enter the Department'
-    })
+        {name: 'Department',
+        type: 'checkbox',
+        message: 'Please select the Department',
+        choices: [],
+    }
+    
+    ])
 
     .then(answer => {
-        const sql = `INSERT into role (title, salary, department_id) VALUES ('${answer.title, answer.salary, answer.department_id});`;
+        const sql = `INSERT into role (title, salary, department_id) VALUES ('${answer.Title}', '${answer.Salary}', '${answer.Department}');`;
+
         db.promise().query(sql)
             .then(([rows, fields]) => {
                 prompt();
         });
-    });
+});
+});
 }
 
 // //add new employee, employee fist name, last name, role and manager 
