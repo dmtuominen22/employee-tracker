@@ -153,7 +153,7 @@ function addRole() {
     FROM department`, (err, res) => {
         if (err) throw err;
         console.log('View By Departments');
-        console.log(res);
+  
   
     var fullDepartmentList = [];
         for (let i = 0; i < res.length; i++) {
@@ -180,9 +180,10 @@ function addRole() {
     ])
 
     .then(answer => {
+        console.log (answer)
         const sql = `INSERT into role (title, salary, department_id) VALUES ('${answer.Title}', '${answer.Salary}', '${answer.Department}');`;
         
-        const sql = `select id from department
+        const dept = `select id from department
         where name = '${answer.Department}';`;
 
         db.promise().query(sql)
