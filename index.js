@@ -153,7 +153,13 @@ function addRole() {
     FROM department`, (err, res) => {
         if (err) throw err;
         console.log('View By Departments');
-        console.log(res [0].department );
+        console.log(res);
+  
+    var fullDepartmentList = [];
+        for (let i = 0; i < res.length; i++) {
+            fullDepartmentList.push(res[i].department);
+          };
+        console.log (fullDepartmentList);
   
     inquirer.prompt([
         {
@@ -168,13 +174,16 @@ function addRole() {
         {name: 'Department',
         type: 'checkbox',
         message: 'Please select the Department',
-        choices: [],
+        choices: fullDepartmentList,
     }
     
     ])
 
     .then(answer => {
         const sql = `INSERT into role (title, salary, department_id) VALUES ('${answer.Title}', '${answer.Salary}', '${answer.Department}');`;
+        
+        const sql = `select id from department
+        where name = '${answer.Department}';`;
 
         db.promise().query(sql)
             .then(([rows, fields]) => {
