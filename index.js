@@ -11,7 +11,7 @@ const promptMessages = {
     viewAllEmployees: "View All Employees",
     addDepartment: "Add A Department",
     addRole: "Add A Role",
-    // addEmployee: "Add A Employee",
+    addEmployee: "Add A Employee",
     // updateEmployeeRole: "Update Employee Role",
     viewByManager: "View All Employees By Manager",
     viewEmployeeByDepartment: "View Employee By Department",
@@ -30,7 +30,7 @@ const prompt = () => {
                 promptMessages.viewAllEmployees,
                 promptMessages.addDepartment,
                 promptMessages.addRole,
-                // promptMessages.addEmployee,
+                promptMessages.addEmployee,
                 // prommpMessages.updateEmployeeRole,
                 promptMessages.viewByManager,
                 promptMessages.viewEmployeeByDepartment,
@@ -60,9 +60,9 @@ const prompt = () => {
                     addRole();
                     break;
 
-                // case promptMessages.addEmployee:
-                //     addEmployee();
-                //     break;
+                case promptMessages.addEmployee:
+                    addEmployee();
+                    break;
 
                 // case promptMessages.updateEmployeeRole:
                 //     updateRole();
@@ -99,10 +99,9 @@ const viewByDepartment = () => {
 
 //view all roles, job title, role id, department and salary for that role
 const viewAllRoles = () => {
-    const sql = `SELECT role.title, role.id, department.name AS department_name, role.salary
-    FROM employee
-    LEFT JOIN role ON (role.id = employee.role_id)
-    LEFT JOIN department ON (department.id = role.department_id)
+    const sql = `SELECT role.title, department.name AS department_name, role.salary
+    FROM role
+    LEFT JOIN department ON (role.department_id = department.id)
     ORDER BY role.title;`;
 
     return db.query(sql, (err, res) => {
@@ -149,62 +148,103 @@ function addDepartment() {
 
 // //add role name, salary and department
 function addRole() {
-      return db.query(`SELECT department.name AS department, department.id AS department_id
+    return db.query(`SELECT department.name AS department, department.id AS department_id
     FROM department`, (err, res) => {
         if (err) throw err;
-        console.log('View By Departments');
-  
-  
-    var fullDepartmentList = [];
+        // console.log(res);
+
+        var fullDepartmentList = [];
         for (let i = 0; i < res.length; i++) {
-            fullDepartmentList.push(res[i].department);
-          };
-        console.log (fullDepartmentList);
-  
-    inquirer.prompt([
-        {
-        name: 'Title',
-        type: 'input',
-        message: 'Please enter the title'},
-     
-       { name: 'Salary',
-        type: 'input',
-        message: 'Please enter the salary'},
-      
-        {name: 'Department',
-        type: 'checkbox',
-        message: 'Please select the Department',
-        choices: fullDepartmentList,
-    }
-    
-    ])
+            fullDepartmentList.push({
+                department: res[i].department,
+                departmentId: res[i].department_id
+            });
+        }
+        console.log(fullDepartmentList);
 
-    .then(answer => {
-        console.log (answer)
-        const sql = `INSERT into role (title, salary, department_id) VALUES ('${answer.Title}', '${answer.Salary}', '${answer.Department}');`;
-        
-        const dept = `select id from department
-        where name = '${answer.Department}';`;
+        inquirer.prompt([
+            {
+                name: 'Title',
+                type: 'input',
+                message: 'Please enter the Employees title'
+            },
+            {
+                name: 'Salary',
+                type: 'input',
+                message: 'Please enter the Employees salary'
+            },
+            {
+                name: 'Department',
+                type: 'list',
+                message: 'Please select the Employees Department',
+                choices: fullDepartmentList.map(a => a.department),
+            }
+        ])
 
-        db.promise().query(sql)
-            .then(([rows, fields]) => {
-                prompt();
-        });
-});
-});
+            .then(answer => {
+                let chosenDepartmentId;
+                for (let i = 0; i < fullDepartmentList.length; i++) {
+                    if (fullDepartmentList[i].department === answer.Department) {
+                        chosenDepartmentId = fullDepartmentList[i].departmentId;
+                    }
+                }
+
+                const sql = `INSERT into role (title, salary, department_id) VALUES ('${answer.Title}', ${answer.Salary}, ${chosenDepartmentId});`;
+
+                db.promise().query(sql)
+                    .then(([rows, fields]) => {
+                        prompt();
+                    });
+            });
+    });
 }
 
-// //add new employee, employee fist name, last name, role and manager 
-// const addEmployee = () => {
-//     const sql = ``;
+//add new employee, employee fist name, last name, role and manager 
+function addEmployee() {
+    return db.query(`SELECT employee.first_name, employee.last_name, role.title AS title, (CONCAT(manager.first_name, ' ', manager.last_name)) AS manager
+    From employee
+    LEFT JOIN employee manager on manager.id = employee.manager_id
+        INNER JOIN role ON (role.id = employee.role_id),
+  FROM employee`, (err, res) => {
+        if (err) throw err;
+  
+        inquirer.prompt([
+            {
+                name: 'Employee First Name',
+                type: 'input',
+                message: 'Please enter the Employees first Name'
+            },
 
-//     return db.query(sql, (err, res) => {
-//         if (err) throw err;
-//         console.log('Add a Employee');
-//         console.table(res);
-//         prompt();
-//     });
-// }
+            {
+                name: 'Employee Last Name',
+                type: 'input',
+                message: 'Please enter the Employees last Name'
+            },
+
+            {
+                name: 'Role',
+                type: 'input',
+                message: 'Please enter the Employees Role'
+            },
+
+            {
+                name: 'Manager',
+                type: 'input',
+                message: 'Please enter the Employees Manager'
+            }
+
+        ])
+            .then(answer => {
+                const sql = `INSERT into `;
+                db.promise().query(sql)
+                    .then(([rows, fields]) => {
+                        prompt();
+                    });
+            });
+    }
+
+
+
 
 // //update Employee role, select an employee to  update there role 
 // const updateEmployeeRole = () => {
@@ -220,40 +260,40 @@ function addRole() {
 
 //extra credit views by Manager
 const viewByManager = () => {
-    const sql = `SELECT CONCAT(manager.first_name, ' ', manager.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
+        const sql = `SELECT CONCAT(manager.first_name, ' ', manager.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
     FROM employee
     LEFT JOIN employee manager on manager.id = employee.manager_id
     INNER JOIN role ON (role.id = employee.role_id && employee.manager_id != 'NULL')
     INNER JOIN department ON (department.id = role.department_id)
     ORDER BY manager;`;
 
-    return db.query(sql, (err, res) => {
-        if (err) throw err;
-        console.log('View By Manager');
-        console.table(res);
-        prompt();
-    });
-}
+        return db.query(sql, (err, res) => {
+            if (err) throw err;
+            console.log('View By Manager');
+            console.table(res);
+            prompt();
+        });
+    }
 
 
-//extra credit view employee by department
-const viewEmployeeByDepartment = () => {
-    const sql = `SELECT department.name AS department, employee.first_name, employee.last_name, role.title, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+    //extra credit view employee by department
+    const viewEmployeeByDepartment = () => {
+        const sql = `SELECT department.name AS department, employee.first_name, employee.last_name, role.title, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
     FROM employee
     LEFT JOIN employee manager on manager.id = employee.manager_id
     INNER JOIN role ON (role.id = employee.role_id && employee.manager_id != 'NULL')
     INNER JOIN department ON (department.id = role.department_id)
     ORDER BY department;`;
 
-    return db.query(sql, (err, res) => {
-        if (err) throw err;
-        console.log('View Employee By Department');
-        console.table(res);
-        prompt();
-    });
+        return db.query(sql, (err, res) => {
+            if (err) throw err;
+            console.log('View Employee By Department');
+            console.table(res);
+            prompt();
+        });
 
-}
+    }
 
-prompt();
+    prompt();
 
 
