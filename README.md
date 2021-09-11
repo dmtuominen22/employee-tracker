@@ -20,9 +20,9 @@
 ## Website 
   It is not deployed to a URL 
 
-  Here is the video link to it running in the terminal  it is in the Utils folder if this link doesn't work
+  Here is the video link to it running in the terminal  it is in the img_video folder folder if this link doesn't work
 
- \projects\employee-tracker\utils\run_through_employee_tracker.mp4 
+ img_video\run_through_employee_tracker.mp4
 
 ## Languages
   JavaScript, jQuery, express , Node, jest, MySQL, API, Insomnia
