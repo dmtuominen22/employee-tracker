@@ -20,8 +20,9 @@
 ## Website 
   It is not deployed to a URL 
 
-  Here is the video link to it running in the terminal
-  <!-- https://user-images.githubusercontent.com/84994258/131766958-0bd173bf-aee0-416c-9d96-fb11ac35cdcf.mp4 -->
+  Here is the video link to it running in the terminal  it is in the Utils folder if this link doesn't work
+
+ \projects\employee-tracker\utils\run_through_employee_tracker.mp4 
 
 ## Languages
   JavaScript, jQuery, express , Node, jest, MySQL, API, Insomnia
@@ -29,12 +30,9 @@
 ## Installations
   You will need to install  npm install, MySQL2 package, Inquirer package, console.table package to have the program run
 
-  here is the link to the video of the test ran for all of the roles.
-<!-- https://user-images.githubusercontent.com/84994258/131235217-4212ce0b-360b-40a8-b2f3-2adcfe629bc1.mp4 -->
-
 
 ## Purpose
-   This project is usage is to keep track of all your employee, there title, there manager and Salery.  
+   This project is usage is to keep track of all your employee, there title, there manager and Salery.  You can set up new query if needed in the future to keep track of all the employee.
 
 
 ## Features
