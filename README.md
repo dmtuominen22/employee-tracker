@@ -11,8 +11,8 @@
 * [Contributions](#contributions)
 
 ## Description
-  <!-- This project is a command line application that runs in node, you are asked questions about member of your staff and the answers will generate an html file with cards for each employee you enter.  Here is an image of the finished cards for 4 employee -->
-<!-- ![image](https://user-images.githubusercontent.com/84994258/131267194-d3cc750b-1ac0-4bc9-8fe2-0072d8b2bef9.png) -->
+   This project is a command line application that runs in node, you are givine a list of options to select where you want to see a list of Department, add an employee edit an employee role or view by Manager.
+![image](https://user-images.githubusercontent.com/84994258/132962050-5b493654-3a66-4882-8d7c-0287253eec7d.png)
 
 ## GitHub
   https://github.com/dmtuominen22/employee-tracker 
@@ -34,11 +34,11 @@
 
 
 ## Purpose
-  <!-- This project is usage is to keep track of all your employee, there title, name and email address.  here is an image of the outcome of the questions -->
+   This project is usage is to keep track of all your employee, there title, there manager and Salery.  
 
-  <!-- ![image](https://user-images.githubusercontent.com/84994258/131234775-cab3f3bc-9a87-4f0f-bced-90560637c6cb.png) -->
+
 ## Features
-  <!-- In this project we used node.js  and npm install to create the content for the cards and do the testing. I used bootstrap to get the layout for the cards. -->
+  In this project we used node.js  and npm install and Insomnia to get the program to run.
 
 ## Contributions
   Denise Tuominen
